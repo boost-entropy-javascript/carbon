@@ -290,9 +290,17 @@ class Editor extends React.Component {
       .then(() =>
         this.props.setToasts({
           type: 'SET',
-          toasts: [{ children: 'Snippet duplicated!', timeout: 3000 }],
+          toasts: [{ children: 'Snippet created', timeout: 3000 }],
         })
       )
+
+  handleSnippetUpdate = () =>
+    this.context.snippet.update(this.props.snippet.id, this.state).then(() =>
+      this.props.setToasts({
+        type: 'SET',
+        toast: [{ children: 'Snippet saved', timeout: 3000 }],
+      })
+    )
 
   handleSnippetDelete = () =>
     this.context.snippet
@@ -397,15 +405,15 @@ class Editor extends React.Component {
             </Overlay>
           )}
         </Dropzone>
-        {this.props.snippet && (
-          <SnippetToolbar
-            snippet={this.props.snippet}
-            onCreate={this.handleSnippetCreate}
-            onDelete={this.handleSnippetDelete}
-            name={config.name}
-            onChange={this.updateSetting}
-          />
-        )}
+        <SnippetToolbar
+          state={this.state}
+          snippet={this.props.snippet}
+          onCreate={this.handleSnippetCreate}
+          onDelete={this.handleSnippetDelete}
+          onUpdate={this.handleSnippetUpdate}
+          name={config.name}
+          onChange={this.updateSetting}
+        />
         <FontFace {...config} />
         <style jsx>
           {`
