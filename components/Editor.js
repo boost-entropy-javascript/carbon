@@ -253,7 +253,7 @@ class Editor extends React.Component {
     }
   }
 
-  updateTheme = theme => this.updateState({ theme })
+  updateTheme = theme => this.updateState({ theme, highlights: null })
   updateHighlights = updates =>
     this.setState(({ highlights = {} }) => ({
       highlights: {
@@ -298,7 +298,7 @@ class Editor extends React.Component {
     this.context.snippet.update(this.props.snippet.id, this.state).then(() =>
       this.props.setToasts({
         type: 'SET',
-        toast: [{ children: 'Snippet saved', timeout: 3000 }],
+        toasts: [{ children: 'Snippet saved', timeout: 3000 }],
       })
     )
 
